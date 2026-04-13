@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AuraChat – AI Assistant</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+  <!-- ===== APP WRAPPER ===== -->
+  <div id="app">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <span class="brand-icon"><i class="fa-solid fa-bolt"></i></span>
+          <span class="brand-name">AuraChat</span>
+        </div>
+        <button id="new-chat-btn" class="new-chat-btn">
+          <i class="fa-solid fa-pen-to-square"></i>
+          <span>New Chat</span>
+        </button>
+      </div>
+
+      <div class="sidebar-history">
+        <p class="history-label">Recent</p>
+        <ul id="history-list">
+          <li class="history-item active">
+            <i class="fa-regular fa-message"></i>
+            <span>Getting started</span>
+          </li>
+          <li class="history-item">
+            <i class="fa-regular fa-message"></i>
+            <span>How does React work?</span>
+          </li>
+          <li class="history-item">
+            <i class="fa-regular fa-message"></i>
+            <span>CSS Flexbox tips</span>
+          </li>
+          <li class="history-item">
+            <i class="fa-regular fa-message"></i>
+            <span>JavaScript promises</span>
+          </li>
+          <li class="history-item">
+            <i class="fa-regular fa-message"></i>
+            <span>Python vs JavaScript</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <div class="user-avatar">S</div>
+          <div class="user-info">
+            <span class="user-name">Student</span>
+            <span class="user-plan">Free Plan</span>
+          </div>
+          <button class="theme-toggle" id="theme-toggle" title="Toggle dark/light mode">
+            <i class="fa-solid fa-moon" id="theme-icon"></i>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Mobile overlay -->
+    <div id="sidebar-overlay"></div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main id="main-content">
+
+      <!-- Top bar (mobile) -->
+      <header id="topbar">
+        <button id="hamburger" aria-label="Open sidebar">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <span class="topbar-title">AuraChat</span>
+        <button id="new-chat-mobile" aria-label="New chat">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </button>
+      </header>
+
+      <!-- ===== MESSAGES AREA ===== -->
+      <section id="chat-area">
+
+        <!-- WELCOME SCREEN -->
+        <div id="welcome-screen">
+          <div class="welcome-inner">
+            <div class="welcome-icon">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <h1 class="welcome-title">What can I help with?</h1>
+            <p class="welcome-sub">Ask me anything — I'm here to assist.</p>
+
+            <div class="suggestion-grid">
+              <div class="suggestion-card" data-text="Explain quantum computing in simple terms">
+                <div class="card-icon"><i class="fa-solid fa-atom"></i></div>
+                <div class="card-body-text">
+                  <h3>Explain a concept</h3>
+                  <p>Quantum computing in simple terms</p>
+                </div>
+              </div>
+              <div class="suggestion-card" data-text="Write a Python function to sort a list of dictionaries">
+                <div class="card-icon"><i class="fa-solid fa-code"></i></div>
+                <div class="card-body-text">
+                  <h3>Write some code</h3>
+                  <p>Sort a list of dictionaries in Python</p>
+                </div>
+              </div>
+              <div class="suggestion-card" data-text="What are the best productivity tips for developers?">
+                <div class="card-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                <div class="card-body-text">
+                  <h3>Get advice</h3>
+                  <p>Best productivity tips for developers</p>
+                </div>
+              </div>
+              <div class="suggestion-card" data-text="Summarize the key differences between SQL and NoSQL databases">
+                <div class="card-icon"><i class="fa-solid fa-database"></i></div>
+                <div class="card-body-text">
+                  <h3>Compare topics</h3>
+                  <p>SQL vs NoSQL databases</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MESSAGES CONTAINER -->
+        <div id="messages-container">
+          <!-- Messages injected by JS -->
+        </div>
+
+        <!-- TYPING INDICATOR -->
+        <div id="typing-indicator" class="typing-indicator hidden">
+          <div class="message-row ai-row">
+            <div class="msg-avatar ai-avatar">A</div>
+            <div class="typing-bubble">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ===== INPUT AREA ===== -->
+      <div id="input-wrapper">
+        <div id="input-box">
+          <button id="attach-btn" class="input-action-btn" title="Attach file">
+            <i class="fa-solid fa-paperclip"></i>
+          </button>
+          <textarea
+            id="user-input"
+            placeholder="Message AuraChat…"
+            rows="1"
+            aria-label="Message input"
+          ></textarea>
+          <button id="send-btn" class="send-btn" disabled title="Send message">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+        <p class="input-footer">AuraChat can make mistakes. Verify important info.</p>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- Custom JS -->
+  <script src="js/chat.js"></script>
+</body>
+</html>
